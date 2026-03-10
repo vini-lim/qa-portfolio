@@ -1,1 +1,34 @@
 # Relatório de Bugs — BugBank
+
+##BUG-001 | Sistema aceita senha com apenas 2 dígitos no cadastro
+
+*ID do Caso de Teste relacionado: CT-003  
+*Severidade: Alta  
+*Prioridade: Média  
+
+*Pré-condições:  
+Estar na tela de cadastro do BugBank.
+
+*Base para o teste:  
+Assunção de Requisito nº 01 (plano-de-testes.md) — senha deve ter no mínimo 6 caracteres,
+conforme padrão adotado em sistemas web.
+
+*Passos para reprodução:
+1. Preencher o nome com "Teste Senha".
+2. Preencher o e-mail com "teste03@qa.com".
+3. Preencher a senha com "12".
+4. Confirmar a senha com "12".
+5. Clicar em "Cadastrar".
+
+*Resultado Esperado:  
+O sistema deve impedir o cadastro, exibindo mensagem de erro sobre o tamanho mínimo da senha e não criando a conta.
+
+*Resultado Obtido:  
+O sistema exibe mensagem de sucesso e cria a conta normalmente, aceitando senha com apenas 2 dígitos.
+
+*Evidência:  
+[Incluir print da tela de sucesso com a conta criada e, se possível, o campo de senha preenchido antes do envio.]
+
+*Ambiente:  
+- Navegador: Chrome (aba anônima)  
+- Sistema: BugBank (https://bugbank.netlify.app)
