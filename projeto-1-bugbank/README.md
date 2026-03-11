@@ -51,8 +51,8 @@ projeto-1-bugbank/
 
 Métrica | Resultado 
 ------
-Total de casos de teste | 11 |
-Casos que passaram | 9 |
+Total de casos de teste | 10 |
+Casos que passaram | 8 |
 Casos que falharam | 2 |
 Bugs encontrados | 2 |
 
