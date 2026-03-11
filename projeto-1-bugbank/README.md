@@ -47,14 +47,14 @@ projeto-1-bugbank/
 
 ---
 
-# 📊 Resumo da Execução
+## 📊 Resumo da Execução
 
-Métrica | Resultado 
-------
-Total de casos de teste | 10 |
-Casos que passaram | 8 |
-Casos que falharam | 2 |
-Bugs encontrados | 2 |
+| Métrica | Resultado |
+|---|---|
+| Total de casos de teste | 10 |
+| Casos que passaram | 8 |
+| Casos que falharam | 2 |
+| Bugs encontrados | 2 |
 
 ---
 
@@ -89,4 +89,5 @@ dedicação em aprender e aplicar na prática o processo real de
 garantia de qualidade — desde o planejamento dos testes até o
 registro de defeitos.
 
-📎 [Ver portfólio completo](../README.md)
+📎 [Ver portfólio completo](../../README.md)
+
