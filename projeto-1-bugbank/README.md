@@ -69,7 +69,6 @@ BUG-002 — Extrato não exibe o tipo da transação
 O detalhamento completo de cada bug (passos para reprodução, 
 resultado esperado vs. obtido e evidências) está em 
 está em [`relatorio-de-bugs.md`](./relatorio-de-bugs.md).
-.
 
 ---
 
@@ -79,7 +78,6 @@ O BugBank não possui documentação formal (SRS). Alguns comportamentos
 esperados foram definidos por mim com base em boas práticas de mercado. 
 Todas as assunções estão listadas na seção 8 do 
 seção 8 do [`plano-de-testes.md`](./plano-de-testes.md).
-.
 
 ---
 
