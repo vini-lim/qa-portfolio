@@ -1,33 +1,5 @@
 # Casos de teste — BugBank
 
-## CT-000 | Compatibilidade Cross-Browser 🟡
-**Técnica:** Teste de Compatibilidade  
-**Pré-condição:** Ter o Google Chrome instalado com ao menos uma
-extensão ativa.
-
-**Passos:**
-1. Acessar https://bugbank.netlify.app no Chrome em modo normal.
-2. Observar o comportamento do sistema.
-3. Abrir uma nova aba anônima (Ctrl+Shift+N).
-4. Acessar https://bugbank.netlify.app na aba anônima.
-5. Observar o comportamento do sistema.
-
-**Resultado Esperado:**  
-O sistema deve carregar e funcionar corretamente no Chrome em
-ambos os modos (normal e anônimo).
-
-**Resultado Obtido:**  
-O sistema não carregou corretamente no Chrome em modo normal.
-Na aba anônima, o sistema funcionou normalmente.
-Diagnóstico: provável conflito com extensão instalada ou cache
-do navegador, já que a aba anônima desativa extensões por padrão.
-
-**Status:** Falhou  
-**Evidência:** [print do erro no Chrome normal vs funcionando
-no anônimo]
-
----
-
 ## CT-001 | Cadastro com dados válidos 🔴
 **Técnica:** EP (dado válido)  
 **Pré-condição:** Estar na tela de cadastro
