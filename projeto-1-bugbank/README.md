@@ -40,8 +40,8 @@ profissional de bug report.
 ```
 projeto-1-bugbank/
 ├── plano-de-testes.md       ← escopo, critérios e assunções de requisitos
-├── casos-de-teste.md        ← 11 casos de teste com técnica e resultado
-├── relatorio-de-bugs.md     ← 3 bugs documentados com passos e evidências
+├── casos-de-teste.md        ← 10 casos de teste com técnica e resultado
+├── relatorio-de-bugs.md     ← 2 bugs documentados com passos e evidências
 └── README.md                ← este arquivo
 ```
 
