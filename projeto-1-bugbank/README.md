@@ -52,9 +52,9 @@ projeto-1-bugbank/
 Métrica | Resultado 
 ------
 Total de casos de teste | 11 |
-Casos que passaram | 8 |
-Casos que falharam | 3 |
-Bugs encontrados | 3 |
+Casos que passaram | 9 |
+Casos que falharam | 2 |
+Bugs encontrados | 2 |
 
 ---
 
@@ -64,9 +64,6 @@ BUG-001 — Sistema aceita senha com apenas 2 dígitos no cadastro
 *Severidade: Alta
 
 BUG-002 — Extrato não exibe o tipo da transação  
-*Severidade: Média
-
-BUG-003 — Sistema não carrega no Chrome em modo normal  
 *Severidade: Média
 
 O detalhamento completo de cada bug (passos para reprodução, 
