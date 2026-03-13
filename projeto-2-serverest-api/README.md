@@ -106,6 +106,34 @@ A API ServerRest não implementa suporte ao método PATCH. Para edições parcia
 
 ### 1. Instalar dependências
 
-```bash
 npm install -g serverest
 
+### 2. Iniciar a API
+
+serverest
+
+A API rodará em http://localhost:3000
+
+### 3. Abrir Postman
+
+Abra a aplicação Postman instalada
+
+### 4. Importar Collection
+
+Clique em File > Import e selecione o arquivo collection.json
+
+### 5. Executar os testes
+
+Clique em qualquer requisição, depois em Send e veja os resultados
+
+---
+
+## 👩‍💻 Sobre mim
+
+Em transição para a área de QA, com foco em construir base técnica sólida 
+em testes manuais e automação. Este projeto reflete minha dedicação em 
+aprender e aplicar na prática o processo real de garantia de qualidade.
+
+---
+
+Ver portfólio completo em ../README.md
