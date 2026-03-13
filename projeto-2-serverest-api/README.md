@@ -136,4 +136,4 @@ aprender e aplicar na prática o processo real de garantia de qualidade.
 
 ---
 
-Ver portfólio completo em ../README.md
+ [Ver portfólio completo](../README.md)
