@@ -135,3 +135,5 @@ Clique em qualquer requisição, depois em **Send** e veja os resultados nas aba
 ## 👩‍💻 Sobre mim
 
 Em transição para a área de QA, com foco em construir base técnica sólida em testes manuais e automação. Este projeto reflete minha dedicação em aprender e aplicar na prática o processo real de garantia de qualidade.
+
+📎 [Ver portfólio completo](../README.md)
