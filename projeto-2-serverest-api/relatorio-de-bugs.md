@@ -1,63 +1,63 @@
 # Relatório de Bugs — ServerRest API
 
-Este documento reúne os bugs encontrados durante os testes de API no ServerRest.
+Este documento reúne os bugs e limitações encontrados durante os testes de API no ServerRest.
 
 ---
 
 ## BUG-001 | PATCH não é suportado (Erro 405)
 
-**ID do Caso de Teste relacionado:** CT-007
+**ID do Caso de Teste relacionado:** CT-007  
+**Severidade:** Média  
+**Prioridade:** Baixa  
 
-**Severidade:** Média
+### Pré-condições
 
-**Prioridade:** Baixa
+- API ServerRest rodando em `http://localhost:3000`
 
-**Pré-condições:**
+### Base para o teste
 
-API ServerRest rodando em http://localhost:3000
+Assunção de Requisito — APIs REST modernas tipicamente suportam `PATCH` para edições parciais.
 
-**Base para o teste:**
+### Passos para Reprodução
 
-Assunção de Requisito — APIs REST modernas tipicamente suportam PATCH para edições parciais.
+1. Enviar requisição `PATCH` para `http://localhost:3000/usuarios/{_id}`
+2. Incluir body com dados parciais: `{"email": "novo@email.com"}`
+3. Observar a resposta
 
-**Passos para reprodução:**
+### Resultado Esperado
 
-1. Enviar requisição PATCH para http://localhost:3000/usuarios/{_id}
-2. Body com dados parciais: {"email": "novo@email.com"}
-3. Observar resposta
+O servidor deve processar `PATCH` e retornar `200 OK`, atualizando apenas os campos enviados.
 
-**Resultado Esperado:**
+### Resultado Obtido
 
-O servidor deve processar PATCH e retornar Status 200, atualizando apenas os campos enviados.
+`405 Method Not Allowed` — a API não implementa suporte ao método `PATCH`.
 
-**Resultado Obtido:**
+### Observação
 
-Status 405 Method Not Allowed — API não implementa suporte a PATCH.
+Não se trata de um bug técnico, mas de uma limitação conhecida da API. Este comportamento está documentado na **Seção 8 do Plano de Testes** (Assunções de Requisitos), onde `PATCH` em `/usuarios/{_id}` é listado como não suportado e retornando `405 Method Not Allowed`. Para edição de dados, deve-se utilizar `PUT`, que exige o envio de todos os campos obrigatórios.
 
-**Observação:**
+### Severidade justificada
 
-Não é um "bug" técnico, mas uma limitação da API. Para edição de dados parciais, 
-usuários precisam usar PUT (que exige TODOS os campos).
+**Média** — afeta a usabilidade para quem espera suporte a atualizações parciais, mas existe workaround funcional via `PUT`.
 
-**Severidade justificada:**
+### Prioridade justificada
 
-Média — Afeta usabilidade, mas existe workaround (usar PUT com todos os dados).
+**Baixa** — trata-se de uma limitação esperada de uma API de demonstração, já mapeada no plano de testes. Não há impacto em ambiente de produção real e o comportamento é contornável.
 
-**Ambiente:**
+### Ambiente
 
-- Navegador: Postman
-- Sistema: ServerRest (http://localhost:3000)
+- **Ferramenta:** Postman
+- **Sistema:** ServerRest (`http://localhost:3000`)
 
 ---
 
 ## Resumo
 
-Total de bugs encontrados: **1**
+| Campo | Valor |
+|-------|-------|
+| Total de bugs encontrados | 1 |
+| Severidade Alta | 0 |
+| Severidade Média | 1 |
+| Severidade Baixa | 0 |
 
-Severidade:
-- Alta: 0
-- Média: 1
-- Baixa: 0
-
-**Nota:** O ServerRest é uma API de demonstração, então limitações como falta de PATCH 
-são aceitáveis para fins educacionais. Em produção, seria esperado suporte completo a PATCH.
+> **Nota:** O ServerRest é uma API de demonstração. Limitações como a ausência de suporte a `PATCH` são aceitáveis para fins educacionais e estão devidamente documentadas no Plano de Testes. Em um contexto de produção, o suporte completo ao método `PATCH` seria esperado como requisito padrão de uma API REST.
