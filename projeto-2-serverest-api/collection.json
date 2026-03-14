@@ -420,22 +420,6 @@
         }
       },
       "response": []
-    },
-    {
-      "name": "POST - Campo com Tipo Incorreto (400)",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
-    },
-    {
-      "name": "GET - Endpoint Inexistente (405)",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
     }
   ],
   "event": [
