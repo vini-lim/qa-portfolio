@@ -1,208 +1,484 @@
 # Casos de Teste — ServerRest API
 
-## CT-001 | GET - Listar Todos os Usuários 🔴
-
-**Técnica:** EP (dado válido)
-
-**Pré-condição:** API ServerRest rodando em http://localhost:3000
-
-**Passos:**
-
-1. Enviar requisição GET para http://localhost:3000/usuarios
-2. Observar o Status Code
-3. Observar a estrutura do Body JSON
-
-**Resultado Esperado:**
-
-- Status Code: 200 OK
-- Body contém objeto JSON com chaves: "quantidade" e "usuarios"
-- Array "usuarios" contém pelo menos 1 usuário
-- Cada usuário tem: nome, email, password, administrador, _id
-
-**Resultado Obtido:**
-
-- Status Code: 200 OK
-- Body retornou JSON com "quantidade": 1 e array "usuarios"
-- Usuário padrão "Fulano da Silva" presente com _id correto
-- Assertions passaram: Status 200, propriedade "usuarios" existe, propriedade "quantidade" existe
-
-**Status:** Passou
+> **Ambiente:** `http://localhost:3000`  
+> **Técnicas utilizadas:** Equivalence Partitioning (EP), Negative Testing, Validação de Headers
 
 ---
 
-## CT-002 | POST - Criar Usuário com Dados Válidos 🔴
+## Resumo de Execução
 
-**Técnica:** EP (dado válido)
-
-**Pré-condição:** API ServerRest rodando
-
-**Passos:**
-
-1. Enviar requisição POST para http://localhost:3000/usuarios
-2. Body com dados válidos: nome, email, password, administrador
-3. Observar Status Code e resposta
-
-**Resultado Esperado:**
-
-- Status Code: 201 Created
-- Body retorna mensagem de sucesso e _id do usuário criado
-- Usuário é adicionado à lista de usuários
-
-**Resultado Obtido:**
-
-- Status Code: 201 Created
-- Body retornou mensagem "Cadastro realizado com sucesso"
-- GET /usuarios subsequente retornou 2 usuários
-
-**Status:** Passou
+| CT | Descrição | Método | Status |
+|----|-----------|--------|--------|
+| [CT-001](#ct-001--get---listar-todos-os-usuários) | Listar todos os usuários | GET | ✅ PASSOU |
+| [CT-002](#ct-002--post---criar-usuário) | Criar usuário | POST | ✅ PASSOU |
+| [CT-003](#ct-003--post---criar-usuário-sem-email-negative) | Criar usuário sem email | POST | ✅ PASSOU |
+| [CT-004](#ct-004--get---listar-usuários-com-filtro) | Listar usuários com filtro | GET | ✅ PASSOU |
+| [CT-005](#ct-005--put---editar-usuário) | Editar usuário | PUT | ✅ PASSOU |
+| [CT-006](#ct-006--delete---deletar-usuário) | Deletar usuário | DELETE | ✅ PASSOU |
+| [CT-007](#ct-007--patch---erro-405) | Método PATCH não suportado | PATCH | ✅ PASSOU |
+| [CT-008](#ct-008--get---validar-headers-customizados) | Validar headers customizados | GET | ✅ PASSOU |
 
 ---
 
-## CT-003 | POST - Criar Usuário Sem Email 🔴
+## CT-001 | GET - Listar Todos os Usuários
 
-**Técnica:** EP (dado inválido)
+**Técnica:** EP (dado válido)  
+**Método:** `GET`  
+**Endpoint:** `/usuarios`
 
-**Pré-condição:** API ServerRest rodando
+### Pré-condição
 
-**Passos:**
+API ServerRest rodando em `http://localhost:3000`
 
-1. Enviar POST para http://localhost:3000/usuarios
-2. Body sem o campo email (obrigatório)
-3. Observar Status Code e erro
+### Passos
 
-**Resultado Esperado:**
+1. Enviar `GET` para `http://localhost:3000/usuarios`
+2. Validar Status Code e estrutura da resposta
 
-- Status Code: 400 Bad Request
-- Body retorna erro indicando que email é obrigatório
-- Usuário NÃO é criado
+### Resultado Esperado
 
-**Resultado Obtido:**
+- Status Code: `200 OK`
+- Body contém `quantidade` e `usuarios`
+- Cada usuário tem: `_id`, `nome`, `email`, `password`, `administrador`
 
-- Status Code: 400 Bad Request
-- Mensagem de erro retornou
-- GET /usuarios confirmou que usuário não foi criado
+### Response Esperado
 
-**Status:** Passou
+```json
+{
+  "quantidade": 1,
+  "usuarios": [
+    {
+      "_id": "1234567890",
+      "nome": "Fulano da Silva",
+      "email": "fulano@example.com",
+      "password": "123456",
+      "administrador": true
+    }
+  ]
+}
+```
 
----
+### Resultado Obtido
 
-## CT-004 | GET - Listar Usuários com Filtro 🔴
+- Status Code: `200 OK` ✅
+- Todas as propriedades presentes ✅
 
-**Técnica:** EP (dado válido) com Query Params
+### Assertions
 
-**Pré-condição:** API rodando, usuários existem
+```javascript
+pm.test("Status code é 200", function () {
+    pm.response.to.have.status(200);
+});
 
-**Passos:**
+pm.test("Response contém 'usuarios' e 'quantidade'", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData).to.have.property('usuarios');
+    pm.expect(jsonData).to.have.property('quantidade');
+});
+```
 
-1. Enviar GET para http://localhost:3000/usuarios?administrador=true
-2. Observar resposta
-
-**Resultado Esperado:**
-
-- Status Code: 200 OK
-- Array retorna apenas usuários com administrador=true
-
-**Resultado Obtido:**
-
-- Status Code: 200 OK
-- Apenas usuários administradores foram retornados
-- Filtro funcionou corretamente
-
-**Status:** Passou
-
----
-
-## CT-005 | PUT - Editar Usuário Completo 🔴
-
-**Técnica:** EP (dado válido)
-
-**Pré-condição:** API rodando, usuário criado
-
-**Passos:**
-
-1. Enviar PUT para http://localhost:3000/usuarios/{_id}
-2. Body com dados editados
-3. Observar resposta
-
-**Resultado Esperado:**
-
-- Status Code: 200 OK
-- Usuário é atualizado com novos dados
-
-**Resultado Obtido:**
-
-- Status Code: 200 OK
-- Usuário foi atualizado conforme solicitado
-
-**Status:** Passou
+### Status: ✅ PASSOU
 
 ---
 
-## CT-006 | DELETE - Deletar Usuário 🔴
+## CT-002 | POST - Criar Usuário
 
-**Técnica:** EP (dado válido)
+**Técnica:** EP (dado válido)  
+**Método:** `POST`  
+**Endpoint:** `/usuarios`
 
-**Pré-condição:** API rodando, usuário existe
+### Pré-condição
 
-**Passos:**
+API ServerRest rodando em `http://localhost:3000`
 
-1. Enviar DELETE para http://localhost:3000/usuarios/{_id}
-2. Fazer GET /usuarios para confirmar
+### Passos
 
-**Resultado Esperado:**
+1. Enviar `POST` para `http://localhost:3000/usuarios`
+2. Incluir body com dados válidos (`nome`, `email`, `password`, `administrador`)
+3. Validar resposta
 
-- Status Code: 200 OK
-- Usuário é removido da lista
+### Body da Requisição
 
-**Resultado Obtido:**
+```json
+{
+  "nome": "João Silva",
+  "email": "joao@example.com",
+  "password": "senha123",
+  "administrador": false
+}
+```
 
-- Status Code: 200 OK
-- Usuário foi deletado com sucesso
+### Resultado Esperado
 
-**Status:** Passou
+- Status Code: `201 Created`
+- Body retorna mensagem de sucesso e `_id`
+- Usuário aparece em `GET /usuarios`
+
+### Response Esperado
+
+```json
+{
+  "message": "Cadastro realizado com sucesso",
+  "_id": "9876543210"
+}
+```
+
+### Resultado Obtido
+
+- Status Code: `201 Created` ✅
+- ID gerado e retornado ✅
+- `GET /usuarios` retornou 2 usuários ✅
+
+### Assertions
+
+```javascript
+pm.test("Status code é 201", function () {
+    pm.response.to.have.status(201);
+});
+
+pm.test("Message contém sucesso", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.message).to.include("Cadastro realizado com sucesso");
+});
+```
+
+### Status: ✅ PASSOU
 
 ---
 
-## CT-007 | POST - Erro 405 (PATCH Não Suportado) 🔴
+## CT-003 | POST - Criar Usuário Sem Email (Negative)
 
-**Técnica:** EP (dado inválido)
+**Técnica:** EP (dado inválido)  
+**Método:** `POST`  
+**Endpoint:** `/usuarios`
 
-**Pré-condição:** API rodando
+### Pré-condição
 
-**Passos:**
+API ServerRest rodando em `http://localhost:3000`
 
-1. Tentar PATCH para http://localhost:3000/usuarios/{_id}
+### Passos
 
-**Resultado Esperado:**
+1. Enviar `POST` para `http://localhost:3000/usuarios`
+2. Omitir o campo `email` (obrigatório)
+3. Validar resposta de erro
 
-- Status Code: 405 Method Not Allowed
+### Body da Requisição
 
-**Resultado Obtido:**
+```json
+{
+  "nome": "Maria Santos",
+  "password": "senha456",
+  "administrador": true
+}
+```
 
-- Status Code: 405 Method Not Allowed
+### Resultado Esperado
 
-**Status:** Passou
+- Status Code: `400 Bad Request`
+- Mensagem de erro menciona que `email` é obrigatório
+- Usuário **não** é criado
+
+### Response Esperado
+
+```json
+{
+  "email": "email é obrigatório"
+}
+```
+
+### Resultado Obtido
+
+- Status Code: `400 Bad Request` ✅
+- Erro claro retornado ✅
+- Usuário não foi criado ✅
+
+### Assertions
+
+```javascript
+pm.test("Status code é 400", function () {
+    pm.response.to.have.status(400);
+});
+
+pm.test("Erro menciona 'email'", function () {
+    var jsonData = pm.response.json();
+    pm.expect(JSON.stringify(jsonData)).to.include("email");
+});
+```
+
+### Status: ✅ PASSOU
 
 ---
 
-## CT-008 | Headers Customizados 🔴
+## CT-004 | GET - Listar Usuários com Filtro
 
-**Técnica:** EP (validação de headers)
+**Técnica:** EP (dado válido) + Query Params  
+**Método:** `GET`  
+**Endpoint:** `/usuarios?administrador=true`
 
-**Pré-condição:** API rodando
+### Pré-condição
 
-**Passos:**
+API ServerRest rodando em `http://localhost:3000` com usuários de diferentes tipos cadastrados
 
-1. Enviar GET com Header customizado: X-Custom-Header: Teste QA
+### Passos
 
-**Resultado Esperado:**
+1. Enviar `GET` para `http://localhost:3000/usuarios?administrador=true`
+2. Validar que apenas administradores são retornados
 
-- Status Code: 200 OK
-- API processa mesmo com headers customizados
+### Resultado Esperado
 
-**Resultado Obtido:**
+- Status Code: `200 OK`
+- Array contém **apenas** usuários com `administrador: true`
 
-- Status Code: 200 OK
-- Requisição processada normalmente
+### Response Esperado
 
-**Status:** Passou
+```json
+{
+  "quantidade": 1,
+  "usuarios": [
+    {
+      "_id": "1234567890",
+      "nome": "Fulano da Silva",
+      "email": "fulano@example.com",
+      "password": "123456",
+      "administrador": true
+    }
+  ]
+}
+```
+
+### Resultado Obtido
+
+- Status Code: `200 OK` ✅
+- Filtro funcionou corretamente ✅
+
+### Assertions
+
+```javascript
+pm.test("Status code é 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Todos usuarios têm administrador=true", function () {
+    var jsonData = pm.response.json();
+    jsonData.usuarios.forEach(function(usuario) {
+        pm.expect(usuario.administrador).to.be.true;
+    });
+});
+```
+
+### Status: ✅ PASSOU
+
+---
+
+## CT-005 | PUT - Editar Usuário
+
+**Técnica:** EP (dado válido)  
+**Método:** `PUT`  
+**Endpoint:** `/usuarios/{_id}`
+
+### Pré-condição
+
+API ServerRest rodando em `http://localhost:3000` com ao menos um usuário cadastrado
+
+### Passos
+
+1. Enviar `PUT` para `http://localhost:3000/usuarios/{_id}`
+2. Incluir body com os dados atualizados
+3. Validar que as alterações foram persistidas
+
+### Body da Requisição
+
+```json
+{
+  "nome": "João Silva Atualizado",
+  "email": "joao.novo@example.com",
+  "password": "novasenha123",
+  "administrador": true
+}
+```
+
+### Resultado Esperado
+
+- Status Code: `200 OK`
+- Mensagem de sucesso retornada
+- Dados persistem em `GET` subsequente
+
+### Response Esperado
+
+```json
+{
+  "message": "Registro alterado com sucesso"
+}
+```
+
+### Resultado Obtido
+
+- Status Code: `200 OK` ✅
+- Usuário atualizado ✅
+
+### Assertions
+
+```javascript
+pm.test("Status code é 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Message contém 'alterado com sucesso'", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.message).to.include("Registro alterado com sucesso");
+});
+```
+
+### Status: ✅ PASSOU
+
+---
+
+## CT-006 | DELETE - Deletar Usuário
+
+**Técnica:** EP (dado válido)  
+**Método:** `DELETE`  
+**Endpoint:** `/usuarios/{_id}`
+
+### Pré-condição
+
+API ServerRest rodando em `http://localhost:3000` com ao menos um usuário cadastrado
+
+### Passos
+
+1. Enviar `DELETE` para `http://localhost:3000/usuarios/{_id}`
+2. Validar que o usuário foi removido
+
+### Resultado Esperado
+
+- Status Code: `200 OK`
+- Usuário removido da lista
+
+### Response Esperado
+
+```json
+{
+  "message": "Registro excluído com sucesso"
+}
+```
+
+### Resultado Obtido
+
+- Status Code: `200 OK` ✅
+- Usuário deletado ✅
+
+### Assertions
+
+```javascript
+pm.test("Status code é 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Message contém 'excluído'", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.message).to.include("excluído");
+});
+```
+
+### Status: ✅ PASSOU
+
+---
+
+## CT-007 | PATCH - Erro 405
+
+**Técnica:** Negative Testing  
+**Método:** `PATCH`  
+**Endpoint:** `/usuarios/{_id}`
+
+### Pré-condição
+
+API ServerRest rodando em `http://localhost:3000`
+
+### Passos
+
+1. Enviar `PATCH` para `http://localhost:3000/usuarios/{_id}`
+2. Validar que o método não é suportado
+
+### Body da Requisição
+
+```json
+{
+  "nome": "Novo Nome"
+}
+```
+
+### Resultado Esperado
+
+- Status Code: `405 Method Not Allowed`
+- Método `PATCH` não é suportado pela API
+
+### Response Esperado
+
+```json
+{
+  "message": "Método não permitido"
+}
+```
+
+### Resultado Obtido
+
+- Status Code: `405 Method Not Allowed` ✅
+
+### Assertions
+
+```javascript
+pm.test("Status code é 405", function () {
+    pm.response.to.have.status(405);
+});
+```
+
+### Bug Encontrado
+
+> ⚠️ **BUG:** O método `PATCH` não é suportado pelo endpoint `/usuarios/{_id}`. Caso seja necessária a atualização parcial de um recurso, deve-se utilizar o método `PUT`.
+
+### Status: ✅ PASSOU (Bug encontrado)
+
+---
+
+## CT-008 | GET - Validar Headers Customizados
+
+**Técnica:** Validação de Headers  
+**Método:** `GET`  
+**Endpoint:** `/usuarios`
+
+### Pré-condição
+
+API ServerRest rodando em `http://localhost:3000`
+
+### Passos
+
+1. Enviar `GET` para `http://localhost:3000/usuarios` com headers customizados
+2. Validar que a API processa normalmente e ignora headers desconhecidos
+
+### Resultado Esperado
+
+- Status Code: `200 OK`
+- Headers customizados não interferem na resposta
+
+### Response Esperado
+
+```json
+{
+  "quantidade": 1,
+  "usuarios": [...]
+}
+```
+
+### Resultado Obtido
+
+- Status Code: `200 OK` ✅
+- API processou normalmente ✅
+
+### Assertions
+
+```javascript
+pm.test("Status code é 200 mesmo com headers customizados", function () {
+    pm.response.to.have.status(200);
+});
+```
+
+### Status: ✅ PASSOU
