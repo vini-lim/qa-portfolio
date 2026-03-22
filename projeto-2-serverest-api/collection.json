@@ -1,0 +1,462 @@
+{
+  "info": {
+    "_postman_id": "3d60a9d0-140d-43ab-b781-7bad0746dfd4",
+    "name": "ServerRest - Testes de API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53095464",
+    "_collection_link": "https://go.postman.co/collection/53095464-3d60a9d0-140d-43ab-b781-7bad0746dfd4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET - Listar Usuários",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status é 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response tem a chave 'usuarios'\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property('usuarios');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response tem a chave 'quantidade'\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property('quantidade');\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST - Criar Usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status é 201 Created\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response tem _id\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property('_id');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response tem message\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property('message');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Mensagem é Cadastro realizado com sucesso\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.message).to.equal('Cadastro realizado com sucesso');\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Teste User\",\r\n  \"email\": \"teste@example.com\",\r\n  \"password\": \"123456\",\r\n  \"administrador\": \"false\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT - Editar Usuário Completo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status é 200 OK\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response tem message\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property('message');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Mensagem é Registro alterado com sucesso\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.message).to.contain('alterado');\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"João Silva Editado\",\r\n  \"email\": \"joao.novo@email.com\",\r\n  \"password\": \"senha123456\",\r\n  \"administrador\": \"false\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/usuarios/xHhvrwmrbvp0OtYV",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios",
+            "xHhvrwmrbvp0OtYV"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH - Editar Email do Usuário",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"email.diferente@test.com\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/usuarios/xHhvrwmrbvp0OtYV",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios",
+            "xHhvrwmrbvp0OtYV"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE - Deletar Usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status é 200 OK\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response tem message\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property('message');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Usuário foi deletado\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.message).to.contain('Excluído');\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/usuarios/xHhvrwmrbvp0OtYV",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios",
+            "xHhvrwmrbvp0OtYV"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - Listar com Filtro",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/usuarios?administrador=true",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios"
+          ],
+          "query": [
+            {
+              "key": "administrador",
+              "value": "true",
+              "type": "text"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - Com Headers Customizados",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Custom-Header",
+            "value": "Teste QA",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST - Cadastro Inválido (Sem Email)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Usuário Sem Email\",\r\n  \"password\": \"123456\",\r\n  \"administrador\": \"false\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET - ID Inválido ou Inexistente (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status é 400 (ID inválido)\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response tem message\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property('message');\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/usuarios/OuxuPY0cbmQhpEz2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios",
+            "OuxuPY0cbmQhpEz2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST - Email Já Cadastrado (400)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status é 400 (email duplicado)\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response tem message\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property('message');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Mensagem menciona email\", function () {\r",
+              "    var jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.message).to.contain('email');\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nome\": \"Outro Usuário\",\r\n  \"email\": \"fulano@qa.com\",\r\n  \"password\": \"123456\",\r\n  \"administrador\": \"false\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "pm.test(\"Status é 200\", function () {\r",
+          "    pm.response.to.have.status(200);\r",
+          "});\r",
+          "\r",
+          "pm.test(\"Response tem a chave 'usuarios'\", function () {\r",
+          "    var jsonData = pm.response.json();\r",
+          "    pm.expect(jsonData).to.have.property('usuarios');\r",
+          "});\r",
+          "\r",
+          "pm.test(\"Response tem a chave 'quantidade'\", function () {\r",
+          "    var jsonData = pm.response.json();\r",
+          "    pm.expect(jsonData).to.have.property('quantidade');\r",
+          "});\r",
+          ""
+        ]
+      }
+    }
+  ]
+}
