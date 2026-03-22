@@ -9,6 +9,9 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: projeto-3-cypress-saucedemo
 
     steps:
       - name: Checkout do código
@@ -19,6 +22,7 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
+          cache-dependency-path: projeto-3-cypress-saucedemo/package-lock.json
 
       - name: Instalar dependências
         run: npm ci
@@ -28,17 +32,18 @@ jobs:
         with:
           browser: chrome
           headed: false
+          working-directory: projeto-3-cypress-saucedemo
 
       - name: Upload de screenshots (se falhar)
         uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
-          path: cypress/screenshots
+          path: projeto-3-cypress-saucedemo/cypress/screenshots
 
       - name: Upload de vídeos
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-videos
-          path: cypress/videos
+          path: projeto-3-cypress-saucedemo/cypress/videos
