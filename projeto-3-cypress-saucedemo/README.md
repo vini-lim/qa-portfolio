@@ -1,4 +1,4 @@
-# Projeto 3 — Automação E2E | SauceDemo
+# Projeto 3 — Automação E2E | SauceDemo | Cypress
 
 ![Cypress Tests](https://github.com/vini-lim/qa-portfolio/actions/workflows/cypress.yml/badge.svg)
 
