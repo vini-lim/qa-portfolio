@@ -1,4 +1,4 @@
-# Projeto 2 — Testes de API | ServerRest
+# Projeto 2 — Testes de API | ServerRest | Postman
 
 Este projeto faz parte do meu portfólio de QA e tem como objetivo documentar a prática de testes manuais de API REST usando Postman. Todo o trabalho foi feito de forma independente, aplicando conceitos reais de teste de API.
 
