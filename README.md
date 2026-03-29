@@ -62,14 +62,33 @@ GitHub Actions (CI/CD).
 
 ---
 
+### 🗂️ [Projeto 4 — Gestão de Testes | Jira + Confluence](./projeto-4-jira-confluence)
+
+Simulação do fluxo real de trabalho de um QA usando o ecossistema
+Atlassian — Jira para gestão de tarefas e bugs, Confluence para
+documentação técnica.
+
+| Item | Detalhe |
+|---|---|
+| **Ferramentas** | Jira Software + Confluence |
+| **Metodologia** | Scrum |
+| **Projetos no Jira** | QA — BugBank + QA — SauceDemo |
+| **Épicos** | 7 no total |
+| **Histórias** | 9 no total |
+| **Bugs Reportados** | 5 no total |
+| **Páginas Confluence** | 6 páginas de documentação |
+
+---
+
 ## 🛠️ Habilidades Demonstradas
 
 ### Testes Manuais
-- Elaboração de plano de testes
+- Elaboração de plano de testes com escopo, critérios e riscos
 - Escrita de casos de teste com EP e BVA
-- Reporte de bugs com severidade e prioridade
+- Reporte de bugs com severidade, prioridade e passos de reprodução
 - Testes de compatibilidade cross-browser
-- Documentação de assunções de requisitos
+- Documentação de assunções de requisitos sem SRS formal
+- Distinção entre severidade e prioridade de bugs
 
 ### Testes de API
 - Testes REST com Postman (GET, POST, PUT, DELETE)
@@ -77,6 +96,7 @@ GitHub Actions (CI/CD).
 - Assertions automatizadas com pm.test()
 - Query parameters, headers e body
 - Exportação de collections
+- Testes positivos e negativos de API
 
 ### Automação
 - Cypress para testes E2E
@@ -84,16 +104,26 @@ GitHub Actions (CI/CD).
 - Page Object Model (POM)
 - CI/CD com GitHub Actions
 - JavaScript para automação
+- Cenários positivos e negativos automatizados
+
+### Gestão de Qualidade
+- Criação e organização de épicos, histórias e tasks no Jira
+- Bug reports detalhados com rastreabilidade no Jira
+- Gestão de sprint com board Scrum
+- Documentação técnica no Confluence
+- Vínculo entre bugs, histórias e épicos
+- Relatórios de execução com métricas
 
 ---
 
 ## 📚 Conhecimentos Aplicados
 
-- **Metodologias:** BDD, TDD conceitual
-- **Técnicas:** EP, BVA, Positive/Negative Testing
-- **Ferramentas:** Postman, Cypress, Git, GitHub
+- **Metodologias:** Scrum, BDD, TDD conceitual
+- **Técnicas:** EP, BVA, Positive/Negative Testing, Smoke Testing
+- **Ferramentas:** Postman, Cypress, Jira, Confluence, Git, GitHub
 - **Linguagens:** JavaScript, Gherkin, Markdown
-- **Conceitos:** REST API, HTTP, CI/CD, SPA
+- **Conceitos:** REST API, HTTP, CI/CD, SPA, Page Object Model
+- **Ecossistema Atlassian:** Jira Software + Confluence
 
 ---
 
